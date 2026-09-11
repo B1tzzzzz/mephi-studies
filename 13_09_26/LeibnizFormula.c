@@ -14,8 +14,8 @@ void solve() {
         sum += add;
         i++;
     }
-    printf("Result is: %.16f\n", sum); 
-    printf("Number of iterations: %d", i);
+    printf("Сумма ряда Лейбница: %.16f\n", sum); 
+    printf("Кол-во итераций: %d", i);
 }
 
 int main() {

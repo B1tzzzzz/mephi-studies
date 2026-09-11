@@ -20,7 +20,7 @@ void solve() {
         if (1.0 - (1.0 - mid) > 0.0) r = mid;
         else l = mid;
     }
-    printf("Computer precision is %.25f", r);
+    printf("Предел машинной точности: %.25f", r);
 }
 
 int main() {

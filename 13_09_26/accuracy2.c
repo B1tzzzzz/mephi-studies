@@ -7,7 +7,7 @@ void solve() {
     {
         eps++;
     }
-    printf("Computer precision is %.25f", 1.0 / (1ll << (eps - 1)));
+    printf("Предел машинной точности: %.25f", 1.0 / (1ll << (eps - 1)));
 }
 
 int main() {
