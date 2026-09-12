@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>  
 #include <stdbool.h>
-#define E 2.2e-5
+#define E 2.2e-8
 void solve() {
     double sum = 0;
     int i = 0;
