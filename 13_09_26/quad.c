@@ -57,24 +57,24 @@ int main() {
     double x1, x2;
     int res;
 
-    printf("Введите коэффициенты квадратного уравнения: ");
+    printf("Enter the coefficients of quadratic equation: ");
     if (scanf("%lf %lf %lf", &a, &b, &c) != 3) {
-        printf("Неверный ввод!");
+        printf("Incorrect input.");
         return 0;
     }
     
     res = eq_quadr(a, b, c, &x1, &x2);
     if (res == 1) {
-        printf("Найдено 2 корня:\nx1 = %.5lf\nx2 = %.5lf", x1, x2);
+        printf("Found 2 solutions:\nx1 = %.5lf\nx2 = %.5lf", x1, x2);
     }
     else if (res == 0) {
-        printf("Найден 1 корень:\nx1 = %.5lf", x1);
+        printf("Found 1 solution:\nx1 = %.5lf", x1);
     }
     else if (res == -1) {
-        printf("Найден комплексный корень:\n Re:%.5lf\nIm:%.5lf", x1, x2);
+        printf("Found complex solution:\n Re:%.5lf\nIm:%.5lf", x1, x2);
     }
     else {
-        printf("Корней нет");
+        printf("No solutions.");
     }
 
     return 0;
