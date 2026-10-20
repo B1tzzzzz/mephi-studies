@@ -1,5 +1,16 @@
 #include <stdlib.h>
 #include <time.h>
 
-void fillArray(float*, int);
-float sumArray(const float*, int);
+void fillArray(float* m, int n) {
+    srand(time(NULL));
+    for (int i = 0; i < n; i++) {
+        m[i] = rand() % 101 / 10.;
+    }
+}
+float sumArray(const float* m, int n) {
+    float s = 0;
+    for (int i = 0; i < n; i++) {
+        s += m[i];
+    }
+    return s;
+}
