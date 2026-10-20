@@ -1,6 +1,5 @@
-#include <stdlib.h>
 #include <time.h>
-
+#include "array.h"
 void fillArray(float* m, int n) {
     srand(time(NULL));
     for (int i = 0; i < n; i++) {
