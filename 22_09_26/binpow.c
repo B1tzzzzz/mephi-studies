@@ -2,7 +2,7 @@
 #include <math.h>
 
 int binPow(int x, int p) {
-    if (p == 0)
+    if (!p)
         return 1;
         
     if (p & 1) 
