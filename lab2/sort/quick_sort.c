@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool input(int *n, int **arr);
+bool input_n(int *n);
 void swap(int *a, int *b);
 int partition(int *arr, int l, int r, int pivot);
 void quick_sort(int *arr, int l, int r);
@@ -21,27 +21,24 @@ int main() {
     return 0;
 }
 
-bool input(int *n, int **arr) {
+bool input_n(int *n) {
     printf("Enter the lenght of an array: ");
     if (scanf("%d", n) != 1 || (*n) <= 0) {
         printf("Incorrect input.\n");
         return 0;
     }
-    
-    *arr = (int*)malloc((*n) * sizeof(int));
-    if (arr == NULL) {
-        printf("Error allocating memory.\n");
-        return 0;
-    }
-    for (int i = 0; i < (*n); i++) {
+    return 1;
+}
+
+bool input_array(int* arr,  int n) {
+    for (int i = 0; i < n; i++) {
         int current;
         printf("Enter element of an array: ");
         if (scanf("%d", &current) == 1) {
-            (*arr)[i] = current;
+            arr[i] = current;
         }
         else {
             printf("Incorrect input.\n");
-            free(arr);
             return 0;
         }
     }

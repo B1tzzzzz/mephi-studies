@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool input(int *n, int *shift, int **arr);
+bool input_n(int *n);
+bool input_array(int* arr,  int n);
 bool shift_array(int *arr, int n, int shift);
 void print_array(const int *arr, int n);
 
@@ -21,33 +22,24 @@ int main() {
     return 0;
 }
 
-bool input(int *n, int *shift, int **arr) {
+bool input_n(int *n) {
     printf("Enter the lenght of an array: ");
     if (scanf("%d", n) != 1 || (*n) <= 0) {
         printf("Incorrect input.\n");
         return 0;
     }
+    return 1;
+}
 
-    printf("Enter the number of steps to cyclically shift an array to the right: ");
-    if (scanf("%d", shift) != 1) {
-        printf("Incorrect input.\n");
-        return 0;
-    }
-    
-    *arr = (int*)malloc((*n) * sizeof(int));
-    if (arr == NULL) {
-        printf("Error allocating memory.\n");
-        return 0;
-    }
-    for (int i = 0; i < (*n); i++) {
+bool input_array(int* arr,  int n) {
+    for (int i = 0; i < n; i++) {
         int current;
         printf("Enter element of an array: ");
         if (scanf("%d", &current) == 1) {
-            (*arr)[i] = current;
+            arr[i] = current;
         }
         else {
             printf("Incorrect input.\n");
-            free(arr);
             return 0;
         }
     }

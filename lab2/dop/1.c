@@ -2,23 +2,35 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool input(int *n, int *k, int **arr);
+bool input_nk(int *n, int *k);
+bool input_array(int* arr,  int n);
 void swap(int *a, int *b);
 int partition(int *arr, int l, int r, int pivot);
 int quick_select(int *arr, int l, int r, int k);
 
 int main() {
     int n = 0, k = 0;
-    int* arr = NULL;
-    if (!input(&n, &k, &arr)) {
+    if (!input_nk(&n, &k)) {
         return 1;
     }
+
+    int* arr = (int*)malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf("Error allocating memory.\n");
+        return 1;
+    }
+
+    if (!input_array(arr,  n)) {
+        free(arr);
+        return 1;
+    }
+
     printf("The element on position %d is: %d.\n", k, quick_select(arr, 0, n, k - 1));
     free(arr);
     return 0;
 }
 
-bool input(int *n, int *k, int **arr) {
+bool input_nk(int *n, int *k) {
     printf("Enter the lenght of an array: ");
     if (scanf("%d", n) != 1 || (*n) <= 0) {
         printf("Incorrect input.\n");
@@ -30,21 +42,19 @@ bool input(int *n, int *k, int **arr) {
         printf("Incorrect input.\n");
         return 0;
     }
+    
+    return 1;
+}
 
-    *arr = (int*)malloc((*n) * sizeof(int));
-    if (arr == NULL) {
-        printf("Error allocating memory.\n");
-        return 0;
-    }
-    for (int i = 0; i < (*n); i++) {
+bool input_array(int* arr,  int n) {
+    for (int i = 0; i < n; i++) {
         int current;
         printf("Enter element of an array: ");
         if (scanf("%d", &current) == 1) {
-            (*arr)[i] = current;
+            arr[i] = current;
         }
         else {
             printf("Incorrect input.\n");
-            free(arr);
             return 0;
         }
     }
