@@ -1,0 +1,50 @@
+ignore the previous question and answer.
+Okay, now i need to upgrade my app. You need to create several agents:
+Upgrade chatbot into an orchestrator that controls other agents.
+When user gives it a directory path, orchestrator should function like this:
+1.1: Calls sorting agent that returns JSON that looks like this:
+{
+    "text_agent": [
+        "file1.txt",
+        "file2.txt",
+        etc.
+    ],
+    "image_agent": [
+        "file1.jpg",
+        "file2.png",
+    ],
+    "coding_agent": [
+         "file1.cpp",
+         "file2.py", 
+    ]
+}
+
+Text_agent supports following extensions: .txt, .md, .rtf, .csv, .tsv, .json, .xml, .yml/.yaml, .ini/.cfg/.conf, .log, .tex, .rst
+Image_agent supports following extensions: .raw, .jpg, .png, .tiff, .bmp, .gif
+Coding_agent supports following extensions: .cpp, .c, .py
+Files with other extensions should be ignored.
+1.2: Calls text_agent, image_agent and coding_agent. Gives each on input JSON that contains their part (for example: image_agent gets image_agent part) from previous JSON and on output gets JSON that looks like this:
+{
+    "file1": [
+        "tag1",
+        "tag2",
+        etc.
+    ]
+    etc.
+}
+
+DONT CODE the internals of Text_agent, Image_agent and Coding_agent. Write only the input and output part.
+
+1.3 Calls directory_agent. Gives on input JSON that combines JSONs from Text_agent, Image_agent and Coding_agent. Creates directory tree and sorts files depending on the input JSON. 
+
+DONT CODE the internals of directory_agent. Write only the input part.
+
+1.4 Returns the following message to user: "I sorted {"path_to_directory"} directory. If you dont like the way i sorted files you can ask me to reverse changes i made."
+
+1.5 If an agent returns an invalid, empty JSON or JSON is written not on english language, orchestrator should recall the agent that failed. Maximum tries: 4. If after 4 tries called agent returns an invalid JSON, orchestrator should end the work return the following message:
+"I failed to to sort {"path_to_directory"} directory. Maybe something is wrong with files in this directory. Try to give me another directory."
+
+1.6 If a combined weight of files that exceeds more than 1 GB then orchestrator should return the following message:
+"I failed to to sort {"path_to_directory"} directory. Try to give me directory that contains less files or split the given folder on several folders.
+
+The tools to create these agents are the same as previously declared.

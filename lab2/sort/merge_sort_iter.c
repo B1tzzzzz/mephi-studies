@@ -5,19 +5,33 @@
 int log_2(int a);
 void swap(int *a, int *b);
 bool input_n(int *n);
+bool input_array(int* arr,  int n);
 bool merge(int *arr, int l, int mid, int r);
 bool merge_sort(int *arr, int n);
 void print_array(const int *arr, int n);
 
 int main() {
     int n = 0;
-    int *arr = NULL;
-    if (!input(&n, &arr)) {
+    if (!input_n(&n)) {
         return 1;
     }
+
+    int* arr = (int*)malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf("Error allocating memory.\n");
+        return 1;
+    }
+
+    if (!input_array(arr,  n)) {
+        free(arr);
+        return 1;
+    }
+
     if (!merge_sort(arr, n)) {
+        free(arr);
         return 1;
     }
+
     print_array(arr, n);
     free(arr);
     return 0;
@@ -115,6 +129,7 @@ bool merge_sort(int *arr, int n) {
     for (int l = 2; l <= tmpSize; l *= 2) {
         for (int i = 0; i < tmpSize; i += l) {
             if (!merge(tmpArr, i, (i * 2 + l) / 2, i + l)){
+                free(tmpArr);
                 return 0;
             }
         }
