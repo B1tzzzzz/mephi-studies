@@ -73,16 +73,16 @@ void print_array(const int *arr, int n) {
 }
 
 bool shift_array(int *arr, int n, int shift){
-    int* tmpArr = (int*)malloc(sizeof(int) * n * 2);
+    int* tmpArr = (int*)malloc(sizeof(int) * n);
     if (tmpArr == NULL) {
         printf("Error allocating memory.\n");
         return 0;
     }
     for (int i = 0; i < n; i++) {
-        tmpArr[i + shift] = arr[i];
+        tmpArr[(i + shift) % n] = arr[i];
     }
-    for (int i = shift; i < n + shift; i++) {
-        arr[i % n] = tmpArr[i];
+    for (int i = 0; i < n; i++) {
+        arr[i] = tmpArr[i];
     }
     free(tmpArr);
     return 1;
