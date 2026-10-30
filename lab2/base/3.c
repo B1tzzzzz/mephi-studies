@@ -4,7 +4,8 @@
 
 bool input_n(int *n);
 bool input_array(int* arr,  int n);
-bool pseudo_sort_array(int *arr, int n);
+void swap(int *a, int *b);
+void pseudo_sort_array(int *arr, int n);
 void print_array(const int *arr, int n);
 
 
@@ -25,11 +26,7 @@ int main() {
         return 1;
     }
 
-    if (!pseudo_sort_array(arr, n)) {
-        free(arr);
-        return 1;
-    }
-
+    pseudo_sort_array(arr, n);
     print_array(arr, n);
     free(arr);
     return 0;
@@ -59,6 +56,23 @@ bool input_array(int* arr,  int n) {
     return 1;
 }
 
+void swap(int *a, int *b) {
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+void pseudo_sort_array(int *arr, int n){
+    int pivot = 0, j = 0, notPositiveCnt = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] < pivot) {
+            swap(&arr[j++], &arr[i]);
+            lessZeroCnt++;
+        }
+    }
+    
+}
+
 void print_array(const int *arr, int n) {
     printf("Pseudosorted array: ");
     for (int i = 0; i < n; i++) {
@@ -67,46 +81,4 @@ void print_array(const int *arr, int n) {
     printf("\n");
 }
 
-bool pseudo_sort_array(int *arr, int n){
-    int *tmpNegative = (int*)malloc(sizeof(int) * n);
-    if (tmpNegative == NULL) {
-        printf("Error allocating memory.\n");
-        return 0;
-    }
-    
-    int *tmpPositive = (int*)malloc(sizeof(int) * n);
-    if (tmpPositive == NULL) {
-        printf("Error allocating memory.\n");
-        free(tmpNegative);
-        return 0;
-    }
-    
-    int szTmpNegative = 0, szTmpPositive = 0, cntZero = 0;
-    for (int i = 0; i < n; i++) {
-        if (arr[i] > 0) {
-            tmpPositive[szTmpPositive++] = arr[i];
-        }
-        else if (arr[i] < 0) {
-            tmpNegative[szTmpNegative++] = arr[i];
-        }
-        else {
-            cntZero++;
-        }
-    }
 
-    for (int i = 0; i < szTmpNegative; i++) {
-        arr[i] = tmpNegative[i];
-    }
-
-    for (int i = szTmpNegative; i < szTmpNegative + cntZero; i++) {
-        arr[i] = 0;
-    }
-
-    for (int i = szTmpNegative + cntZero; i < n; i++) {
-        arr[i] = tmpPositive[i - szTmpNegative - cntZero];
-    }
-
-    free(tmpPositive);
-    free(tmpNegative);
-    return 1;
-}

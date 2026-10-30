@@ -4,7 +4,8 @@
 
 bool input_n_shift(int *n, int *shift);
 bool input_array(int* arr,  int n);
-bool shift_array(int *arr, int n, int shift);
+void swap(int* a, int* b);
+void shift_array(int *arr, int n, int shift);
 void print_array(const int *arr, int n);
 
 int main() {
@@ -24,11 +25,7 @@ int main() {
         return 1;
     }
 
-    if (!shift_array(arr, n, shift)){
-        free(arr);
-        return 1;
-    }
-
+    shift_array(arr, n, shift);
     print_array(arr, n);
     free(arr);
     return 0;
@@ -72,18 +69,24 @@ void print_array(const int *arr, int n) {
     printf("\n");
 }
 
-bool shift_array(int *arr, int n, int shift){
-    int* tmpArr = (int*)malloc(sizeof(int) * n);
-    if (tmpArr == NULL) {
-        printf("Error allocating memory.\n");
-        return 0;
+void swap(int *a, int *b) {
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+void shift_array(int *arr, int n, int shift){
+    int cnt = 0, i = 0, j = 0;
+    while (cnt < n) {
+        i = j;
+        int tmp = arr[i];
+        while (1) {
+            i = (i + shift) % n;
+            cnt++;
+            swap(&arr[i], &tmp);
+            if (i == j || cnt == n) break;
+        }
+        j++;
+        if (cnt == n) break;
     }
-    for (int i = 0; i < n; i++) {
-        tmpArr[(i + shift) % n] = arr[i];
-    }
-    for (int i = 0; i < n; i++) {
-        arr[i] = tmpArr[i];
-    }
-    free(tmpArr);
-    return 1;
 }
